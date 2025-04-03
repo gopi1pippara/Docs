@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Accessibility Issues Demo - Extended</title>
+  <style>
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #000;
+      color: #fff;
+      padding: 8px;
+      z-index: 100;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ISSUE 1: Missing alt on image -->
+  <img src="decorative.jpg">
+  <!-- FIX: <img src="decorative.jpg" alt="A decorative background"> -->
+
+  <!-- ISSUE 2: Icon-only button -->
+  <button><i class="fa fa-search"></i></button>
+  <!-- FIX: <button aria-label="Search"><i class="fa fa-search"></i></button> -->
+
+  <!-- ISSUE 3: Input without label -->
+  <input type="text" name="username">
+  <!-- FIX:
+    <label for="username">Username</label>
+    <input id="username" type="text" name="username">
+  -->
+
+  <!-- ISSUE 4: Missing form fieldset/legend -->
+  <form>
+    <input type="radio" name="gender" value="male"> Male
+    <input type="radio" name="gender" value="female"> Female
+  </form>
+  <!-- FIX:
+    <form>
+      <fieldset>
+        <legend>Select your gender</legend>
+        <input type="radio" name="gender" value="male"> Male
+        <input type="radio" name="gender" value="female"> Female
+      </fieldset>
+    </form>
+  -->
+
+  <!-- ISSUE 5: Color used as only indicator -->
+  <p style="color: red;">Required field</p>
+  <!-- FIX: <p><strong style="color: red;">*Required field</strong></p> -->
+
+  <!-- ISSUE 6: Link text not descriptive -->
+  <a href="terms.html">Click here</a>
+  <!-- FIX: <a href="terms.html">Read our terms and conditions</a> -->
+
+  <!-- ISSUE 7: Poor color contrast -->
+  <div style="color: #ccc; background-color: #fff;">Low contrast text</div>
+  <!-- FIX: <div style="color: #000; background-color: #fff;">High contrast text</div> -->
+
+  <!-- ISSUE 8: Non-interactive element with event handler -->
+  <div onclick="alert('clicked')">Click me</div>
+  <!-- FIX: <button onclick="alert('clicked')">Click me</button> -->
+
+  <!-- ISSUE 9: Missing skip link -->
+  <!-- FIX:
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <main id="main">...</main>
+  -->
+
+  <!-- ISSUE 10: Table without headers -->
+  <table>
+    <tr><td>Apple</td><td>Fruit</td></tr>
+    <tr><td>Carrot</td><td>Vegetable</td></tr>
+  </table>
+  <!-- FIX:
+    <table>
+      <tr><th>Name</th><th>Type</th></tr>
+      <tr><td>Apple</td><td>Fruit</td></tr>
+      <tr><td>Carrot</td><td>Vegetable</td></tr>
+    </table>
+  -->
+
+  <!-- ISSUE 11: Autofocus can disorient users -->
+  <input type="text" name="email" autofocus>
+  <!-- FIX: Avoid using autofocus unless truly needed -->
+
+  <!-- ISSUE 12: No language attribute -->
+  <!-- FIX: Already set as <html lang="en"> at top -->
+
+  <!-- ISSUE 13: Missing ARIA role for custom widget -->
+  <div class="tablist">
+    <div>Tab 1</div>
+    <div>Tab 2</div>
+  </div>
+  <!-- FIX:
+    <div role="tablist">
+      <div role="tab">Tab 1</div>
+      <div role="tab">Tab 2</div>
+    </div>
+  -->
+
+</body>
+</html>
