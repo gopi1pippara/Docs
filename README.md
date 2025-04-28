@@ -90,3 +90,31 @@ const isRequiredAutopay = (conditionalNavigate, MPQOffer) => {
         pass1AutoRecurringPayFlag === REQUIRED_PASS_FLAG
     );
 };
+
+
+import React from 'react';
+
+const getAutoPayAndInitialPaymentContent = (enableSplitPayFlag, isRequiredAutopayFlag, MPQOffer) => {
+  if (enableSplitPayFlag && isRequiredAutopayFlag) {
+    return (
+      <span>
+        With required Autopay and a <b>{MPQOffer?.minLendDeeperPercentage}%</b> initial payment
+      </span>
+    );
+  } else if (enableSplitPayFlag) {
+    return (
+      <span>
+        With required Autopay and a <b>{MPQOffer?.minLendDeeperPercentage}%</b> initial payment
+      </span>
+    );
+  } else if (isRequiredAutopayFlag) {
+    return (
+      <span>
+        With required Autopay
+      </span>
+    );
+  }
+  return null;
+};
+
+export default getAutoPayAndInitialPaymentContent;
