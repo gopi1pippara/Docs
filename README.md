@@ -72,3 +72,21 @@
 
 </body>
 </html>
+
+
+const isRequiredAutopay = (conditionalNavigate, MPQOffer) => {
+    const ALLOWED_FLAGS = ["X", "R"];
+    const REQUIRED_PASS_FLAG = "Y";
+
+    const merchantAutoRecurringPayFlag = conditionalNavigate?.merchantConfig?.merchantProductInfo?.find(
+        (merchantProduct) =>
+            merchantProduct?.clientProductCode === conditionalNavigate?.merchantConfig?.configMap?.paylaterClientProductCode
+    )?.autoRecurringPayFlag;
+
+    const pass1AutoRecurringPayFlag = MPQOffer?.csiAutoPayRecurringFlag;
+
+    return (
+        ALLOWED_FLAGS.includes(merchantAutoRecurringPayFlag) &&
+        pass1AutoRecurringPayFlag === REQUIRED_PASS_FLAG
+    );
+};
