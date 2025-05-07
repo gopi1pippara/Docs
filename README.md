@@ -118,3 +118,31 @@ const getAutoPayAndInitialPaymentContent = (enableSplitPayFlag, isRequiredAutopa
 };
 
 export default getAutoPayAndInitialPaymentContent;
+Here is your revised email with the clarified requirement for tagging sessions with a unique tracking ID or MFE launch context:
+
+⸻
+
+Subject: Selective Session Recording and Tracking for MFE Launches in Web MVC Application
+
+Dear New Relic Support Team,
+
+We are using New Relic in a web MVC application where user sessions can last up to four hours. However, we do not want to record the entire session duration.
+
+The application launches various Micro Frontends (MFEs) from the main MVC application. Our goal is to include the New Relic browser agent script in the main application and programmatically start and stop session recording around each MFE launch.
+
+Additionally, we want to tag or associate each recording session with a unique tracking ID that reflects the MFE launch context or identifier. This will help us analyze user interactions specific to each MFE instance.
+
+Could you please advise on:
+	1.	How to start and stop session replay recording programmatically.
+	2.	How to attach custom attributes or identifiers (e.g., tracking ID or MFE name) to each recording session.
+
+Any documentation or implementation guidance you can provide would be greatly appreciated.
+
+Best regards,
+[Your Full Name]
+[Your Company Name]
+[Your Email Address]
+
+⸻
+
+Would you like to include example code snippets or current implementation details in the email?
