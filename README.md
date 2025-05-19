@@ -143,6 +143,121 @@ Best regards,
 [Your Company Name]
 [Your Email Address]
 
+
+
+Similar example with Jackson lib
+Certainly! Here’s how to achieve custom field exclusion using your own annotation (e.g., @Sensitive) with Jackson in Java.
+
+⸻
+
+Step 1: Create Custom Annotation
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Sensitive {
+}
+
+
+⸻
+
+Step 2: Apply @Sensitive to fields you want to exclude
+
+public class User {
+    private String name;
+    private String email;
+
+    @Sensitive
+    private String password;
+
+    @Sensitive
+    private String ssn;
+
+    // Constructors, getters, setters
+}
+
+
+⸻
+
+Step 3: Create Custom BeanSerializerModifier
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
+import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class SensitiveFieldSerializerModifier extends BeanSerializerModifier {
+
+    @Override
+    public List<BeanPropertyWriter> changeProperties(SerializationConfig config,
+                                                     BeanDescription beanDesc,
+                                                     List<BeanPropertyWriter> beanProperties) {
+
+        return beanProperties.stream()
+            .filter(writer -> !writer.getMember().hasAnnotation(Sensitive.class))
+            .collect(Collectors.toList());
+    }
+}
+
+
+⸻
+
+Step 4: Register the Modifier in a Custom Module
+
+import com.fasterxml.jackson.databind.module.SimpleModule;
+
+public class SensitiveFieldFilterModule extends SimpleModule {
+    public SensitiveFieldFilterModule() {
+        setSerializerModifier(new SensitiveFieldSerializerModifier());
+    }
+}
+
+
+⸻
+
+Step 5: Configure ObjectMapper and Serialize
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        User user = new User();
+        user.setName("Alice");
+        user.setEmail("alice@example.com");
+        user.setPassword("secret123");
+        user.setSsn("123-45-6789");
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new SensitiveFieldFilterModule());
+
+        String json = mapper.writeValueAsString(user);
+        System.out.println(json); // password and ssn excluded
+    }
+}
+
+
+⸻
+
+Output:
+
+{"name":"Alice","email":"alice@example.com"}
+
+
+⸻
+
+✅ Summary
+
+Task	Gson	Jackson
+Custom annotation	@Sensitive	@Sensitive
+Strategy/Modifier	ExclusionStrategy	BeanSerializerModifier
+Registration point	GsonBuilder.setExclusionStrategies()	ObjectMapper.registerModule()
+
+Let me know if you want the same for deserialization or dynamic toggling based on context (e.g., user role).
+
 ⸻
 
 Would you like to include example code snippets or current implementation details in the email?
