@@ -1,0 +1,133 @@
+Here’s a Jackson example to mask sensitive fields (instead of excluding them) using a custom annotation like @Sensitive.
+
+⸻
+
+1. Create @Sensitive Annotation
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Sensitive {
+}
+
+
+⸻
+
+2. Apply to Your POJO
+
+public class User {
+    private String name;
+    private String email;
+
+    @Sensitive
+    private String password;
+
+    @Sensitive
+    private String ssn;
+
+    // Constructors, getters, setters
+}
+
+
+⸻
+
+3. Create Custom Serializer for Masking
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
+import java.io.IOException;
+
+public class SensitiveFieldMaskingSerializer extends JsonSerializer<Object> {
+    @Override
+    public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers)
+            throws IOException {
+        if (value != null) {
+            gen.writeString("****");  // Replace with actual masking logic if needed
+        } else {
+            gen.writeNull();
+        }
+    }
+}
+
+
+⸻
+
+4. Create Serializer Modifier to Apply Masking to @Sensitive Fields
+
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
+import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
+
+import java.util.List;
+
+public class SensitiveFieldMaskingModifier extends BeanSerializerModifier {
+    private final JsonSerializer<Object> maskingSerializer = new SensitiveFieldMaskingSerializer();
+
+    @Override
+    public List<BeanPropertyWriter> changeProperties(SerializationConfig config,
+                                                     BeanDescription beanDesc,
+                                                     List<BeanPropertyWriter> beanProperties) {
+        for (BeanPropertyWriter writer : beanProperties) {
+            if (writer.getMember().hasAnnotation(Sensitive.class)) {
+                writer.assignSerializer(maskingSerializer);
+            }
+        }
+        return beanProperties;
+    }
+}
+
+
+⸻
+
+5. Register Custom Module
+
+import com.fasterxml.jackson.databind.module.SimpleModule;
+
+public class SensitiveMaskingModule extends SimpleModule {
+    public SensitiveMaskingModule() {
+        setSerializerModifier(new SensitiveFieldMaskingModifier());
+    }
+}
+
+
+⸻
+
+6. Use It in Main Method
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        User user = new User();
+        user.setName("Alice");
+        user.setEmail("alice@example.com");
+        user.setPassword("superSecret");
+        user.setSsn("123-45-6789");
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new SensitiveMaskingModule());
+
+        String json = mapper.writeValueAsString(user);
+        System.out.println(json);
+    }
+}
+
+
+⸻
+
+Output
+
+{
+  "name": "Alice",
+  "email": "alice@example.com",
+  "password": "****",
+  "ssn": "****"
+}
+
+
+⸻
+
+Let me know if you want to customize the masking format (e.g., ***-**-6789 for SSNs) or apply role-based masking.
