@@ -23,3 +23,6 @@ Object.keys(localStorage).forEach((key) => {
     localStorage.removeItem(key);
   }
 });
+
+
+window.NREUM = { privacy: { cookies_enabled: false } };
