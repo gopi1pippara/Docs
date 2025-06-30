@@ -26,3 +26,14 @@ Object.keys(localStorage).forEach((key) => {
 
 
 window.NREUM = { privacy: { cookies_enabled: false } };
+
+
+
+<script>
+  window.NREUM = {
+    privacy: {
+      cookies_enabled: false, // disables cookies
+      allow_browsing: false,  // disables session tracking
+    }
+  };
+</script>
