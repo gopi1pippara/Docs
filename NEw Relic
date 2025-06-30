@@ -1,0 +1,7 @@
+document.cookie.split(";").forEach((c) => {
+  if (c.includes("NR") || c.includes("JSESSIONID")) {
+    document.cookie = c
+      .replace(/^ +/, "")
+      .replace(/=.*/, "=;expires=" + new Date(0).toUTCString() + ";path=/");
+  }
+});
