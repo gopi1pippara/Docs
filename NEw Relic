@@ -5,3 +5,21 @@ document.cookie.split(";").forEach((c) => {
       .replace(/=.*/, "=;expires=" + new Date(0).toUTCString() + ";path=/");
   }
 });
+
+
+
+// Delete New Relic cookies
+document.cookie.split(";").forEach((c) => {
+  if (c.includes("NR") || c.includes("JSESSIONID")) {
+    document.cookie = c
+      .replace(/^ +/, "")
+      .replace(/=.*/, "=;expires=" + new Date(0).toUTCString() + ";path=/");
+  }
+});
+
+// Delete New Relic localStorage
+Object.keys(localStorage).forEach((key) => {
+  if (key.includes("NR") || key.includes("newrelic")) {
+    localStorage.removeItem(key);
+  }
+});
