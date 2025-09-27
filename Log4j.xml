@@ -1,31 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration status="WARN">
-  <appenders>
-    <Console name="Console" target="SYSTEM_OUT">
-      <!-- Layout is JSON -->
-      <JsonLayout
-          eventEol="true"
-          compact="true"
-          objectMessageAsJsonObject="true"
-          includeThreadContext="true"
-          includeTimeMillis="true">
-          
-        <!-- custom “pattern-like” fields -->
-        <KeyValuePair key="EventTime"     value="$${date:yyyy-MM-dd HH:mm:ss,SSS,US/Eastern}"/>
-        <KeyValuePair key="SpringProfile" value="${sys:SPRING_PROFILES_ACTIVE}"/>
-        <KeyValuePair key="TrackId"       value="${ctx:TrackId}"/>
-        <KeyValuePair key="AppName"       value="ProviderCenter"/>
-        
-      </JsonLayout>
-    </Console>
-  </appenders>
+<configuration>
+  <!-- Console JSON appender -->
+  <appender name="JSON_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- Either LogstashEncoder (simple) ... -->
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
 
-  <loggers>
-    <logger name="jsonLogger" level="${sys:LOG_LEVEL:-info}" additivity="false">
-      <AppenderRef ref="Console" includeLocation="true"/>
-    </logger>
-    <root level="${sys:LOG_LEVEL:-info}">
-      <AppenderRef ref="Console" includeLocation="true"/>
-    </root>
-  </loggers>
+    <!-- ...or Composite encoder if you want full control
+    <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+      <providers>
+        <timestamp timeZone="UTC"/>
+        <pattern>
+          <pattern>
+            { "app":"provider-center" }
+          </pattern>
+        </pattern>
+        <logLevel/>
+        <threadName/>
+        <loggerName/>
+        <message/>        <!-- "business_event" -->
+        <mdc/>            <!-- includes MDC fields like TrackId -->
+        <stackTrace/>
+      </providers>
+    </encoder>
+    -->
+  </appender>
+
+  <root level="INFO">
+    <appender-ref ref="JSON_CONSOLE"/>
+  </root>
 </configuration>
