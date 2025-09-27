@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
-  <Appenders>
+<configuration status="WARN">
+  <appenders>
     <Console name="Console" target="SYSTEM_OUT">
-      <!-- Layout is JSON; no <pattern> here -->
+      <!-- Layout is JSON -->
       <JsonLayout
           eventEol="true"
           compact="true"
           objectMessageAsJsonObject="true"
-          includeThreadContext="true"     <!-- MDC -->
+          includeThreadContext="true"
           includeTimeMillis="true">
+          
         <!-- custom “pattern-like” fields -->
         <KeyValuePair key="EventTime"     value="$${date:yyyy-MM-dd HH:mm:ss,SSS,US/Eastern}"/>
         <KeyValuePair key="SpringProfile" value="${sys:SPRING_PROFILES_ACTIVE}"/>
-        <KeyValuePair key="TrackId"       value="${ctx:TrackId}"/>   <!-- pull from MDC -->
+        <KeyValuePair key="TrackId"       value="${ctx:TrackId}"/>
         <KeyValuePair key="AppName"       value="ProviderCenter"/>
+        
       </JsonLayout>
     </Console>
-  </Appenders>
+  </appenders>
 
-  <Loggers>
-    <Logger name="jsonLogger" level="${sys:LOG_LEVEL:-info}" additivity="false">
-      <!-- includeLocation makes class/method/line available to layouts -->
+  <loggers>
+    <logger name="jsonLogger" level="${sys:LOG_LEVEL:-info}" additivity="false">
       <AppenderRef ref="Console" includeLocation="true"/>
-    </Logger>
-    <Root level="${sys:LOG_LEVEL:-info}">
+    </logger>
+    <root level="${sys:LOG_LEVEL:-info}">
       <AppenderRef ref="Console" includeLocation="true"/>
-    </Root>
-  </Loggers>
-</Configuration>
+    </root>
+  </loggers>
+</configuration>
