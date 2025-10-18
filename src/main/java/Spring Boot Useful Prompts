@@ -1,0 +1,110 @@
+# Spring Boot Useful Prompts
+# This file contains categorized prompts for understanding, debugging, and exploring a Spring Boot application using GitHub Copilot.
+# Usage: Paste these into Copilot Chat or as code comments. Be specific by referencing files/classes where possible.
+
+## 1. Debugging
+- "Debug this Spring Boot controller method: identify potential null pointer exceptions and suggest fixes."
+- "Explain why this service method might throw a RuntimeException and how to handle it with try-catch."
+- "Step through the execution of this API endpoint and log potential failure points."
+- "Suggest breakpoints and logging statements to debug this database query issue."
+- "Analyze this stack trace from a Spring Boot app and recommend resolutions."
+- "How to use Spring Boot's Actuator for debugging runtime metrics?"
+- "Debug memory leaks in this caching implementation."
+- "Identify race conditions in this multi-threaded service and suggest synchronization."
+- "Troubleshoot why this bean injection is failing at startup."
+- "Simulate and debug a 500 Internal Server Error in this REST controller."
+
+## 2. Application Flows
+- "Map out the request flow from controller to repository for this user authentication endpoint."
+- "Describe the lifecycle of a HTTP request in this Spring Boot app, including filters and interceptors."
+- "Generate a sequence diagram for the order processing flow starting from the API call."
+- "Explain the data flow between microservices in this application."
+- "Trace the execution path for a POST request to /api/users, including validation and persistence."
+- "Visualize the error handling flow in case of validation failures."
+- "Outline the startup flow of the Spring Boot application, from main method to bean initialization."
+- "Describe the shutdown hooks and graceful shutdown process."
+- "Map the asynchronous task flow using @Async annotations."
+- "Explain the event-driven flow using Spring's ApplicationEvents."
+
+## 3. API (REST/Controllers)
+- "List all REST endpoints in this controller and their HTTP methods."
+- "Explain the request mapping and parameters for this API endpoint."
+- "Suggest improvements to this REST controller for better error handling."
+- "Generate Swagger/OpenAPI documentation for this API class."
+- "How does this controller handle CORS and security?"
+- "Refactor this API to use ResponseEntity for better response control."
+- "Validate request body in this POST endpoint using @Valid."
+- "Implement pagination for this GET API returning a list."
+- "Handle file uploads in this multipart API endpoint."
+- "Test this API endpoint with mock requests and responses."
+
+## 4. Configuration
+- "Explain the properties in application.yml and their impact on the app."
+- "How to configure multiple profiles (dev, prod) in this Spring Boot app?"
+- "Set up external configuration using Spring Cloud Config."
+- "Configure database connections via application.properties."
+- "Explain bean definitions in this @Configuration class."
+- "Customize Spring Boot auto-configuration exclusions."
+- "Set up environment variables for sensitive configs like passwords."
+- "Configure CORS globally in the application."
+- "Explain the @Value annotations and property injection here."
+- "Migrate this config from XML to Java-based configuration."
+
+## 5. Logging
+- "Configure logging levels for specific packages in logback.xml."
+- "Explain how to log requests and responses in this Spring Boot app using interceptors."
+- "Add structured logging with JSON format using Logstash."
+- "Debug logging issues: why aren't logs appearing in console?"
+- "Integrate SLF4J with Log4j2 in this application."
+- "Set up rolling file logs with size and time-based rotation."
+- "Log exceptions with full stack traces in service methods."
+- "Use @Slf4j annotation for easier logging in this class."
+- "Configure cloud logging integration (e.g., ELK stack)."
+- "Filter sensitive data from logs in API requests."
+
+## 6. Caching
+- "Explain the caching setup using @EnableCaching and @Cacheable."
+- "How to evict cache entries programmatically in this service?"
+- "Configure Redis as the caching provider in Spring Boot."
+- "Analyze cache hit/miss ratios for this method."
+- "Implement conditional caching based on method parameters."
+- "Handle cache expiration and TTL settings."
+- "Integrate Caffeine for in-memory caching."
+- "Debug why cache is not being used in this query."
+- "Set up distributed caching with Hazelcast."
+- "Test caching behavior with unit tests."
+
+## 7. Design Patterns
+- "Identify Singleton pattern usage in this Spring Boot app and explain."
+- "Explain the Factory pattern in this bean creation method."
+- "Refactor this code to use Builder pattern for object construction."
+- "Describe the Observer pattern in event listeners here."
+- "Apply Strategy pattern to this algorithm selection."
+- "Explain Dependency Injection as used in Spring's IoC container."
+- "Identify Adapter pattern in this legacy integration."
+- "Use Decorator pattern to extend this service functionality."
+- "Analyze Chain of Responsibility in request filters."
+- "Implement Prototype pattern for cloning objects."
+
+## 8. Other Aspects (Security, Database, Testing, etc.)
+- "Configure Spring Security for JWT authentication in this app."
+- "Explain database migrations using Flyway or Liquibase."
+- "Set up JPA repositories and entity mappings."
+- "Write unit tests for this service using JUnit and Mockito."
+- "Integrate Kafka for message queuing."
+- "Handle transactions with @Transactional annotations."
+- "Optimize performance for this slow-running query."
+- "Set up monitoring with Prometheus and Grafana."
+- "Explain Dockerization of this Spring Boot app."
+- "Handle internationalization (i18n) with message bundles."
+- "Implement rate limiting on APIs using Bucket4j."
+- "Configure email sending with Spring Mail."
+- "Explain WebSocket setup for real-time features."
+- "Migrate to reactive programming with WebFlux."
+- "Handle file storage with AWS S3 integration."
+
+# Tips for Using These Prompts
+- Prefix with "@workspace" in Copilot Chat for project context.
+- Customize by adding file names, e.g., "In UserService.java, [prompt]".
+- Combine prompts for deeper insights, e.g., "Debug and explain the flow for...".
+- Always review Copilot's output for accuracy.
