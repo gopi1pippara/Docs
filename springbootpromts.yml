@@ -1,0 +1,359 @@
+!!python/object/apply:collections.OrderedDict
+- - - metadata
+    - name: springbootpromts
+      version: 1.0.0
+      generated_at: '2025-10-18T15:42:34'
+      author: Gopi
+      usage:
+      - Paste these prompts into Copilot Chat inside IntelliJ/VS Code.
+      - Prefix with '@workspace' and add file paths for best results.
+      - 'When asking for analyses, append: ''Cite file paths and line numbers.'''
+  - - categories
+    - - name: High-Level & Flow Analysis
+        prompts:
+        - Explain the overall architecture and primary business domain of this Spring
+          Boot application.
+        - List all key Spring components (Controllers, Services, Repositories) and
+          explain their relationship.
+        - 'Trace the full request lifecycle for the API endpoint: /api/v1/users/{id}'
+        - Generate a high-level sequence diagram (Mermaid format) showing the flow
+          from the main controller to the database for the 'create order' operation.
+        - What are the core dependencies in pom.xml, and what is the purpose of the
+          'spring-cloud-starter-config' dependency?
+      - name: Code & Class Explanation
+        prompts:
+        - /explain this private method and its side effects.
+        - Write a Javadoc docstring for the selected class that summarizes its responsibilities,
+          dependencies, and thread-safety considerations.
+        - How does this custom Spring Filter (highlighted) modify the incoming HTTP
+          request?
+        - Summarize the logic in this loop block in simple terms for a non-Java developer.
+      - name: API & Exception Handling
+        prompts:
+        - List all REST endpoints defined in this controller and their required path
+          variables/request bodies.
+        - How is cross-origin resource sharing (CORS) configured for the API? Is it
+          applied globally or per-endpoint?
+        - Where is the global exception handler defined, and how does it handle a
+          'ResourceNotFoundException'?
+      - name: Configuration & Environment
+        prompts:
+        - Explain the effect of the properties defined in application-prod.yml.
+        - How is the database connection string configured for the 'dev' profile?
+        - Analyze the custom Spring Beans defined in this @Configuration class. What
+          is the lifecycle of the 'TransactionManager' bean?
+      - name: Debugging & Error Fixes
+        prompts:
+        - /explain this stack trace (paste stack trace). What is the root cause and
+          the suggested line for a fix?
+        - I'm getting a 403 Forbidden error on the /admin endpoint. Analyze the security
+          configuration and suggest why my user is being denied access.
+        - /fix this code to prevent a potential 'ConcurrentModificationException'.
+        - The variable 'userCount' is returning an unexpected value. Explain the initialization
+          and modification points for this variable across the codebase.
+      - name: Logging
+        prompts:
+        - Where is the logback/log4j2 configuration file located, and what is the
+          configured appender (file/console/external)?
+        - What is the current logging level for the 'com.organization.app.service'
+          package, and how can I temporarily raise it to DEBUG?
+      - name: Testing
+        prompts:
+        - /tests Generate a comprehensive set of JUnit 5 tests for this UserService
+          class, including mocks for the Repository dependency.
+        - Write an integration test using @SpringBootTest for the POST /api/v1/orders
+          endpoint that verifies a 201 response.
+      - name: Design Patterns
+        prompts:
+        - Which Gang of Four (GoF) design pattern is implemented in this 'NotificationServiceFactory'
+          class, and how does it promote loose coupling?
+        - Refactor the selected utility class using the Builder Pattern to improve
+          object creation readability.
+        - Does the application use the Command pattern for any business operations?
+          If so, where?
+      - name: Caching & Performance
+        prompts:
+        - Where is Caching (@Cacheable) implemented, and what is the configured cache
+          provider (e.g., Redis, Caffeine)?
+        - Explain the eviction strategy and Time-To-Live (TTL) configured for the
+          'user-details' cache.
+        - Analyze this code block for potential database N+1 query issues and suggest
+          an optimization using Spring Data JPA.
+      - name: Debugging
+        prompts:
+        - 'Debug this Spring Boot controller method: identify potential null pointer
+          exceptions and suggest fixes.'
+        - Explain why this service method might throw a RuntimeException and how to
+          handle it with try-catch.
+        - Step through the execution of this API endpoint and log potential failure
+          points.
+        - Suggest breakpoints and logging statements to debug this database query
+          issue.
+        - Analyze this stack trace from a Spring Boot app and recommend resolutions.
+        - How to use Spring Boot's Actuator for debugging runtime metrics?
+        - Debug memory leaks in this caching implementation.
+        - Identify race conditions in this multi-threaded service and suggest synchronization.
+        - Troubleshoot why this bean injection is failing at startup.
+        - Simulate and debug a 500 Internal Server Error in this REST controller.
+      - name: Application Flows
+        prompts:
+        - Map out the request flow from controller to repository for this user authentication
+          endpoint.
+        - Describe the lifecycle of a HTTP request in this Spring Boot app, including
+          filters and interceptors.
+        - Generate a sequence diagram for the order processing flow starting from
+          the API call.
+        - Explain the data flow between microservices in this application.
+        - Trace the execution path for a POST request to /api/users, including validation
+          and persistence.
+        - Visualize the error handling flow in case of validation failures.
+        - Outline the startup flow of the Spring Boot application, from main method
+          to bean initialization.
+        - Describe the shutdown hooks and graceful shutdown process.
+        - Map the asynchronous task flow using @Async annotations.
+        - Explain the event-driven flow using Spring's ApplicationEvents.
+      - name: API (REST/Controllers)
+        prompts:
+        - List all REST endpoints in this controller and their HTTP methods.
+        - Explain the request mapping and parameters for this API endpoint.
+        - Suggest improvements to this REST controller for better error handling.
+        - Generate Swagger/OpenAPI documentation for this API class.
+        - How does this controller handle CORS and security?
+        - Refactor this API to use ResponseEntity for better response control.
+        - Validate request body in this POST endpoint using @Valid.
+        - Implement pagination for this GET API returning a list.
+        - Handle file uploads in this multipart API endpoint.
+        - Test this API endpoint with mock requests and responses.
+      - name: Configuration
+        prompts:
+        - Explain the properties in application.yml and their impact on the app.
+        - How to configure multiple profiles (dev, prod) in this Spring Boot app?
+        - Set up external configuration using Spring Cloud Config.
+        - Configure database connections via application.properties.
+        - Explain bean definitions in this @Configuration class.
+        - Customize Spring Boot auto-configuration exclusions.
+        - Set up environment variables for sensitive configs like passwords.
+        - Configure CORS globally in the application.
+        - Explain the @Value annotations and property injection here.
+        - Migrate this config from XML to Java-based configuration.
+      - name: Logging (How-To)
+        prompts:
+        - Configure logging levels for specific packages in logback.xml.
+        - Explain how to log requests and responses in this Spring Boot app using
+          interceptors.
+        - Add structured logging with JSON format using Logstash.
+        - 'Debug logging issues: why aren''t logs appearing in console?'
+        - Integrate SLF4J with Log4j2 in this application.
+        - Set up rolling file logs with size and time-based rotation.
+        - Log exceptions with full stack traces in service methods.
+        - Use @Slf4j annotation for easier logging in this class.
+        - Configure cloud logging integration (e.g., ELK stack).
+        - Filter sensitive data from logs in API requests.
+      - name: Caching (How-To)
+        prompts:
+        - Explain the caching setup using @EnableCaching and @Cacheable.
+        - How to evict cache entries programmatically in this service?
+        - Configure Redis as the caching provider in Spring Boot.
+        - Analyze cache hit/miss ratios for this method.
+        - Implement conditional caching based on method parameters.
+        - Handle cache expiration and TTL settings.
+        - Integrate Caffeine for in-memory caching.
+        - Debug why cache is not being used in this query.
+        - Set up distributed caching with Hazelcast.
+        - Test caching behavior with unit tests.
+      - name: Design Patterns (How-To)
+        prompts:
+        - Identify Singleton pattern usage in this Spring Boot app and explain.
+        - Explain the Factory pattern in this bean creation method.
+        - Refactor this code to use Builder pattern for object construction.
+        - Describe the Observer pattern in event listeners here.
+        - Apply Strategy pattern to this algorithm selection.
+        - Explain Dependency Injection as used in Spring's IoC container.
+        - Identify Adapter pattern in this legacy integration.
+        - Use Decorator pattern to extend this service functionality.
+        - Analyze Chain of Responsibility in request filters.
+        - Implement Prototype pattern for cloning objects.
+      - name: Other Aspects
+        prompts:
+        - Configure Spring Security for JWT authentication in this app.
+        - Explain database migrations using Flyway or Liquibase.
+        - Set up JPA repositories and entity mappings.
+        - Write unit tests for this service using JUnit and Mockito.
+        - Integrate Kafka for message queuing.
+        - Handle transactions with @Transactional annotations.
+        - Optimize performance for this slow-running query.
+        - Set up monitoring with Prometheus and Grafana.
+        - Explain Dockerization of this Spring Boot app.
+        - Handle internationalization (i18n) with message bundles.
+        - Implement rate limiting on APIs using Bucket4j.
+        - Configure email sending with Spring Mail.
+        - Explain WebSocket setup for real-time features.
+        - Migrate to reactive programming with WebFlux.
+        - Handle file storage with AWS S3 integration.
+      - name: Repo & Architecture Overview
+        prompts:
+        - 'Give me a high-level repo summary: modules, build system, key directories,
+          and the fastest way to run locally. Include prerequisites, env vars, and
+          common pitfalls. Cite file paths.'
+        - List all Spring Boot entry points (@SpringBootApplication). Explain profiles
+          and configuration loading order (application.yml, application-<profile>.yml).
+          Show where profile is selected. Cite file paths.
+        - Generate a component diagram (Mermaid) of core packages (controller → service
+          → repository → integration). Label major classes. Cite file paths.
+        - Identify top 10 most referenced services and controllers. What are their
+          responsibilities? Cite file paths.
+      - name: Service Layer, Transactions & Business Rules
+        prompts:
+        - Map services to repositories they use. Show @Transactional boundaries and
+          propagation settings. Flag risky read/write mixes. Cite file paths.
+        - Find business rules scattered across services. Propose consolidation or
+          strategy pattern if-else chains are large. Cite file paths.
+        - Locate places with blocking I/O on hot paths; propose async/queue patterns.
+          Cite file paths.
+        - Identify places where null checks or Optional misuses may cause NPE. Suggest
+          safer patterns. Cite file paths.
+      - name: Data Layer & Performance
+        prompts:
+        - List entities with largest number of relations and where they are loaded.
+          Flag potential N+1 queries and eager loads. Cite file paths.
+        - Find @Query / Criteria queries missing timeouts or limits. Suggest safe
+          defaults. Cite file paths.
+        - Show where pagination and sorting are implemented. Are they validated? Cite
+          file paths.
+        - Identify transaction isolation levels and default behavior. Where should
+          @Transactional(readOnly=true) be applied? Cite file paths.
+        - Locate jdbcTemplate/EntityManager raw SQL blocks; check for parameter binding
+          and SQL injection risks. Cite file paths.
+      - name: Configuration, Profiles & Feature Flags
+        prompts:
+        - 'Explain configuration sources: application.yml hierarchy, @ConfigurationProperties
+          classes, and profile-specific overrides. Which properties are required to
+          run locally? Cite file paths.'
+        - Find unused or duplicated properties keys. Suggest cleanup. Cite file paths.
+        - Identify feature flags/toggles and how they alter runtime behavior. Provide
+          a quick switch matrix by profile. Cite file paths.
+        - Which beans are conditional (@ConditionalOn…)? Show why/when they load.
+          Cite file paths.
+        - Create a .env/.properties checklist for local/dev/test/prod with current
+          defaults.
+      - name: Security (Authn/Authz)
+        prompts:
+        - Describe authentication mechanism (Spring Security filters, OAuth2/JWT,
+          SSO). Trace login flow. Cite file paths.
+        - List method-level security (@PreAuthorize/@Secured) and URL path matching
+          rules. Identify gaps for sensitive endpoints. Cite file paths.
+        - Find places where user identity/roles are read and how they’re propagated
+          to logs/MDC. Cite file paths.
+        - Check CSRF/CORS configuration and origins. Are they too broad? Cite file
+          paths.
+      - name: Caching & Redis (Advanced)
+        prompts:
+        - List all @Cacheable/@CachePut/@CacheEvict usage. Show cache names, keys,
+          TTLs, and invalidation points. Cite file paths.
+        - Identify risky caches (no invalidation, stale reads). Suggest improvements
+          (versioned keys, events). Cite file paths.
+        - Trace Redis configuration (connection, serializers). Check for binary vs
+          JSON serialization mismatches. Cite file paths.
+      - name: Logging & Observability
+        prompts:
+        - Summarize logging configuration (logback-spring.xml/log4j2). Is JSON logging
+          enabled? Show log pattern and fields. Cite file paths.
+        - Where do we enrich MDC (traceId, userId, requestId)? Verify MDC propagation
+          in async executors. Cite file paths.
+        - List all custom metrics/timers/counters. Where are they registered? Provide
+          example dashboards/NRQL queries. Cite file paths.
+        - Find logging of sensitive data; suggest masking strategies. Cite file paths.
+        - Propose a consistent error response contract and map exceptions to it. Show
+          @ControllerAdvice implementation. Cite file paths.
+      - name: Async, Concurrency & Scheduling
+        prompts:
+        - List all @Async methods and their executors. Verify thread pool sizes and
+          queue policies. Flag potential deadlocks. Cite file paths.
+        - Identify CompletableFuture/parallelStream usage and error handling. Are
+          timeouts and cancellations handled? Cite file paths.
+        - List @Scheduled tasks/Quartz jobs and their cron, overlap, and error handling
+          policies. Cite file paths.
+        - Check WebClient/RestTemplate timeouts, retries, and circuit-breakers (Resilience4j).
+          Cite file paths.
+      - name: External Integrations
+        prompts:
+        - 'Catalog outbound integrations: client classes, configuration, endpoints,
+          auth. Map where each is called. Cite file paths.'
+        - Verify timeouts, retries, bulkheads, and idempotency keys for external calls.
+          Cite file paths.
+        - 'Show S3/SNS/SQS usage: serialization format, error handling, poison-queue
+          strategy. Cite file paths.'
+        - Identify where secrets/credentials are loaded. Ensure none are committed;
+          propose secure alternatives. Cite file paths.
+      - name: Testing Strategy & Gaps
+        prompts:
+        - List existing test suites by layer (unit, slice, integration, e2e). Show
+          coverage hotspots and blind spots. Cite file paths.
+        - Generate JUnit 5 tests for <Service/Controller> using Mockito/WebTestClient,
+          based on real DTOs from the repo.
+        - Propose top 5 high-value tests for critical flows with exact file targets
+          and test names.
+        - Locate test fixtures/builders and suggest a reusable TestDataBuilder pattern.
+          Cite file paths.
+      - name: Performance & Reliability
+        prompts:
+        - Find slow paths (I/O, heavy serialization, big object graphs). Suggest measurable
+          optimizations and add timers. Cite file paths.
+        - Identify synchronous chains that should be evented/queued. Propose minimal
+          refactor. Cite file paths.
+        - Check memory usage patterns (large collections, caching pitfalls). Suggest
+          bounded caches or streaming. Cite file paths.
+        - Verify graceful shutdown hooks and in-flight request draining. Cite file
+          paths.
+      - name: Exception Handling & Error Budget
+        prompts:
+        - Inventory custom exceptions and where they originate. Are they mapped to
+          stable error responses? Cite file paths.
+        - Find broad catch blocks swallowing errors. Propose structured handling with
+          logging + metrics. Cite file paths.
+        - Trace how correlation/trace IDs propagate from incoming request to logs
+          and error responses. Cite file paths.
+      - name: Design Patterns & Refactoring Candidates
+        prompts:
+        - Locate large if/else or switch blocks determining business rules; propose
+          Strategy/State pattern with class sketches. Cite file paths.
+        - Detect duplicate mapping/conversion logic; propose MapStruct centralization.
+          Cite file paths.
+        - Find fat controllers; move logic to services and add tests. Provide a small
+          diff. Cite file paths.
+        - Suggest domain aggregates and boundaries to reduce coupling between modules.
+          Cite file paths.
+        - Propose builder/record/immutability for DTOs and critical entities. Cite
+          file paths.
+      - name: Build, CI/CD & Runbooks
+        prompts:
+        - Summarize Gradle/Maven modules, plugins, and build profiles. Identify outdated
+          dependencies with security flags. Cite file paths.
+        - 'Describe CI workflows: build, test, lint, SCA, Docker, deploy. Suggest
+          a minimal pipeline if gaps exist. Cite file paths.'
+        - 'Generate a ''Run Locally'' guide: commands, env vars, seed data, sample
+          requests (curl/Postman). Cite file paths.'
+        - 'Create an Ops runbook: health endpoints, log grep recipes, common incident
+          checks, and rollback steps. Cite file paths.'
+      - name: Frontend ↔ Backend Flow (React + Spring Boot)
+        prompts:
+        - List frontend routes and the API calls each screen makes. Link to hooks/services.
+          Create a sequence diagram for the Apply flow. Cite file paths.
+        - Trace a specific API call from React hook → fetch layer → controller → service
+          → repository. Identify data shape mismatches. Cite file paths.
+        - Find duplicated API client code; propose a single typed client with interceptors
+          and error normalization. Cite file paths.
+      - name: Power Phrases
+        prompts:
+        - Cite file paths and (if possible) line numbers used in your analysis.
+        - Limit analysis to <path> and ignore test build directories.
+        - Propose a small, diff-ready refactor limited to 60 lines.
+        - Output as a Markdown table/diagram I can paste into README/Confluence.
+        - If unsure, list assumptions and exactly where to verify them in code (paths/lines).
+      - name: Quick Terminal Companions
+        prompts:
+        - Generate grep/find commands to locate all controllers/services/repos and
+          summarize counts.
+        - Generate curl or HTTPie commands to exercise key endpoints with realistic
+          payloads.
+        - Generate SQL snippets to inspect top tables used in the <Flow>.

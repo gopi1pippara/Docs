@@ -1,0 +1,290 @@
+coding_agent_prompts:
+  architecture_analysis:
+    title: "Project Architecture Analysis"
+    prompts:
+      - category: "Project Structure"
+        examples:
+          - "Analyze and explain the overall architecture of this project"
+          - "What is the purpose of the {module/package} and how does it fit into the larger system?"
+          - "Describe the folder structure and explain the responsibility of each layer"
+          - "List all main components and their dependencies in this project"
+          - "Generate a comprehensive documentation of the project's architecture"
+
+      - category: "Code Review"
+        examples:
+          - "Review this code for potential security vulnerabilities"
+          - "Analyze this code for performance optimization opportunities"
+          - "Check for common anti-patterns in this codebase"
+          - "Suggest improvements for code maintainability"
+
+  api_development:
+    title: "API Development"
+    prompts:
+      - category: "Endpoint Analysis"
+        examples:
+          - "List all REST endpoints and explain their functionality"
+          - "Explain the complete request/response flow for {endpoint}"
+          - "Document HTTP methods, parameters, and response types"
+          - "Show all API endpoints that interact with {entity/service}"
+          - "Explain the authentication and authorization mechanism"
+
+      - category: "API Testing"
+        examples:
+          - "Generate test cases for this API endpoint"
+          - "Create integration tests for the authentication flow"
+          - "Write performance test scenarios for this API"
+
+  database_operations:
+    title: "Database Management"
+    prompts:
+      - category: "Schema Design"
+        examples:
+          - "Review and optimize the database schema"
+          - "Suggest indexes for performance improvement"
+          - "Analyze database relationships and constraints"
+
+      - category: "Query Optimization"
+        examples:
+          - "Optimize this database query for better performance"
+          - "Review and improve the database access patterns"
+          - "Suggest caching strategies for frequently accessed data"
+
+  debugging_assistance:
+    title: "Debugging and Problem Solving"
+    prompts:
+      - category: "Error Analysis"
+        examples:
+          - "Analyze this error stack trace and suggest solutions"
+          - "Debug this failing test and propose fixes"
+          - "Identify potential memory leaks in this code"
+
+      - category: "Performance Issues"
+        examples:
+          - "Profile this code section for performance bottlenecks"
+          - "Suggest optimization strategies for this operation"
+          - "Analyze and improve resource utilization"
+
+  security_review:
+    title: "Security Assessment"
+    prompts:
+      - category: "Vulnerability Check"
+        examples:
+          - "Scan for common security vulnerabilities"
+          - "Review authentication implementation"
+          - "Check for proper input validation"
+          - "Analyze password handling and encryption"
+
+  best_practices:
+    title: "Best Practices Implementation"
+    prompts:
+      - category: "Code Quality"
+        examples:
+          - "Refactor this code to follow SOLID principles"
+          - "Implement design patterns for this use case"
+          - "Suggest improvements for code readability"
+          - "Add proper error handling and logging"
+  Application Flow & Business Logic:
+    title: "Application Flow & Business Logic"
+    prompts:
+      - category: "Workflow Analysis"
+        examples:
+          - "Map out the application flow for the user registration process"
+          - "Explain the business logic behind the order processing system"
+          - "Identify key decision points in the application workflow"
+          - "Describe how different modules interact to fulfill a user request"
+          - "Trace the execution flow from controller to database for this feature"
+          - "Explain the business logic in this service class"
+          - "What happens when [specific method] is called? Walk me through the flow"
+          - "Explain how data flows through the different layers of this application"
+          - "What external services does this application integrate with and how?
+      - category: "Logic Optimization"
+        examples:
+          - "Review the business logic for potential improvements"
+          - "Suggest optimizations for the checkout process"
+          - "Analyze the workflow for bottlenecks and inefficiencies"
+  Configuration Understanding
+    title: "Configuration Understanding"
+    prompts:
+      - category: "Config File Analysis"
+        examples:
+          - "Explain the purpose of each configuration setting in this file"
+          - "How does this configuration impact application behavior?"
+          - "Identify any misconfigurations that could lead to issues"
+          - "Describe how environment-specific configurations are managed"
+          - "What are the default values for these settings and when should they be changed?"
+          - "Explain the role of this configuration file in the overall application setup"
+          - "How do these settings affect performance and scalability?"
+          - "What environment-specific configurations exist and where are they defined?"
+          - "Explain the database configuration in this project"
+          - "What are the active Spring profiles and what do they configure?"
+          - "Explain the security configuration in this application"
+          - "What connection pool settings are configured and what do they mean?"
+  Logging Analysis
+    title: "Logging Analysis"
+    prompts:
+      - category: "Log Review"
+        examples:
+          - "Analyze the logging strategy used in this application"
+          - "Identify key log statements for debugging purposes"
+          - "Suggest improvements for log clarity and usefulness"
+          - "Explain the log levels used and their appropriate usage"
+          - "How is logging configured in this application?"
+          - "What logging framework is being used and why?"
+          - "Are there any best practices followed in the logging implementation?"
+          - "How can logging be improved for better monitoring and alerting?"
+          - "Explain the logging configuration and log levels in this project"
+          - "What logging framework is being used and how is it configured?"
+          - "Show me all the log statements in this class and explain their purpose"
+          - "What logs should I look for when debugging [specific feature]?"
+          - "Suggest additional logging for this method to improve debugging"
+  Caching Implementation
+    title: "Caching Implementation"
+    prompts:
+      - category: "Cache Strategy Analysis"
+        examples:
+          - "Explain the caching strategy used in this application"
+          - "Identify which data is being cached and why"
+          - "Suggest improvements for cache efficiency and hit rate"
+          - "Describe how cache invalidation is handled"
+          - "What caching mechanisms are implemented in this project?"
+          - "How is caching configured and what are the key settings?"
+          - "Are there any best practices followed in the caching implementation?"
+          - "How can caching be optimized for better performance?"
+          - "Explain the caching configuration in this application"
+          - "What data is being cached and what is the expiration policy?"
+          - "Show me all the cache-related annotations and explain their purpose"
+          - "How does caching impact the performance of [specific feature]?"
+          - "Suggest additional caching opportunities in this codebase"
+          - "Explain the cache eviction policies in place"
+          - "What cache provider is configured and how is it set up?"
+          - "Which methods use caching and what are their cache keys?"
+          - "Explain the cache eviction strategy for [specific cache]"
+          - "How can I verify if caching is working properly for this method?"
+          - "What are the cache hit and miss rates for this application?"
+          - "Suggest improvements to the current caching strategy to enhance performance"
+          - "How does the caching layer interact with the database in this application?"
+          - "What are the potential pitfalls of the current caching implementation and how can they be mitigated?"
+          - "How does the caching layer handle data consistency and synchronization with the database?"
+  Design Patterns Identification
+    title: "Design Patterns Identification"
+    prompts:
+      - category: "Pattern Analysis"
+        examples:
+          - "Identify the design patterns used in this codebase"
+          - "Explain how the Singleton pattern is implemented in this class"
+          - "Describe the use of the Factory pattern in this module"
+          - "What design patterns are applied in the service layer?"
+          - "How does the Observer pattern work in this application?"
+          - "Identify and explain the design patterns used in this project"
+          - "How is the Dependency Injection pattern implemented here?"
+          - "What design patterns are used in the data access layer?"
+          - "Explain the Strategy pattern as applied in this code"
+          - "How does the Decorator pattern enhance functionality in this application?"
+          - "What design patterns are implemented in this codebase?"
+          - "Explain the use of [specific pattern] in this class"
+          - "Is this following the Repository pattern correctly?"
+          - "Identify the use of Dependency Injection in this component"
+          - "Explain how the Factory/Builder/Strategy pattern is implemented here"
+  Exception Handling Review
+    title: "Exception Handling Review"
+    prompts:
+      - category: "Error Management Analysis"
+        examples:
+          - "Analyze the exception handling strategy in this application"
+          - "Identify areas where exception handling can be improved"
+          - "Suggest best practices for error management in this codebase"
+          - "Describe how custom exceptions are used and their purpose"
+          - "What is the global exception handling mechanism in this project?"
+          - "How are exceptions logged and monitored in this application?"
+          - "Are there any anti-patterns in the current exception handling approach?"
+          - "How can exception handling be improved for better user experience?"
+          - "Explain the exception handling strategy used in this code"
+          - "What custom exceptions are defined and how are they used?"
+          - "Show me how exceptions are propagated through the layers of this application"
+          - "What is the global exception handler and how does it work?"
+          - "Suggest improvements for exception handling in this method"
+          - "How are different types of exceptions categorized and managed?"
+          - "Explain the exception handling strategy in this application"
+          - "What happens when [specific exception] is thrown?"
+          - "List all custom exceptions and when they are used"
+          - "Explain the global exception handler configuration"
+          - "What happens when [specific exception] is thrown?"
+          - "List all custom exceptions and when they are used"
+          - "Explain the global exception handler configuration"
+  Debugging Prompts
+    title: "Debugging Prompts"
+    prompts:
+      - category: "Issue Diagnosis"
+        examples:
+          - "Identify the root cause of this NullPointerException"
+          - "Explain why this method is not returning the expected result"
+          - "Analyze the code to find potential sources of memory leaks"
+          - "Suggest debugging steps for this performance issue"
+          - "What could be causing this intermittent failure in the application?"
+          - "How can I trace the execution flow to debug this issue?"
+          - "What tools or techniques can I use to debug this problem?"
+          - "Explain how to set up breakpoints and inspect variables in this code"
+          - "Identify potential causes for this timeout error"
+          - "Suggest ways to reproduce this bug consistently"
+          - "What could cause [specific error] in this code?"
+          - "Help me debug why this method is returning null/unexpected results"
+          - "What are potential performance bottlenecks in this code?"
+          - "Why might this API call be failing? Check for common issues"
+          - "Identify potential null pointer exceptions in this method"
+          - "What thread safety issues might exist in this code?"
+  Security Analysis
+    title: "Security Analysis"
+    prompts:
+      - category: "Vulnerability Assessment"
+        examples:
+          - "Identify potential security vulnerabilities in this code"
+          - "What best practices are followed for input validation?"
+          - "How is sensitive data protected in this application?"
+          - "Are there any hardcoded secrets or credentials?"
+          - "Explain the use of HTTPS and secure communication"
+          - "What authentication and authorization mechanisms are in place?"
+          - "How is user data sanitized before processing?"
+          - "What security headers are implemented in the HTTP responses?"
+          - "Are there any known vulnerabilities in the dependencies?"
+          - "How is logging handled to avoid information leakage?"
+          - "Explain the authentication flow in this application"
+          - "What authorization rules are configured for different endpoints?"
+          - "How are passwords/secrets managed in this application?"
+          - "What CORS configuration is in place?"
+          - "Identify potential security vulnerabilities in this code"
+          - "Are there any hardcoded secrets or credentials in the code?"
+          - "How is input validation handled to prevent injection attacks?" 
+          - "Explain the authentication and authorization mechanisms used"
+          - "What measures are in place to protect sensitive data?" 
+          - "Are there any known vulnerabilities in the third-party libraries used?"
+          - "Suggest improvements to enhance the security posture of this application"
+  Performance Optimization
+    title: "Performance Optimization"
+    prompts:
+      - category: "Efficiency Analysis"
+        examples:
+          - "Identify performance bottlenecks in this code"
+          - "Suggest optimizations for database queries"
+          - "How can I improve the response time of this API?"
+          - "Analyze memory usage and suggest improvements"
+          - "What caching strategies can be implemented to enhance performance?"
+          - "How can I reduce the startup time of this application?"
+          - "What profiling tools can I use to analyze performance?"
+          - "Explain how to measure and monitor application performance"
+          - "Identify inefficient algorithms or data structures in this code"
+          - "Suggest ways to optimize resource utilization"
+          - "What are the potential performance bottlenecks in this code?"
+          - "How can database access be optimized for better performance?"
+          - "Suggest improvements for reducing API response times"
+          - "Analyze memory usage patterns and suggest optimizations"
+          - "What caching strategies can be applied to improve performance?"
+          - "How can I optimize the startup time of this application?"
+          - "What profiling tools are recommended for performance analysis?"
+          - "Explain how to set up performance monitoring for this application"
+          - "Identify inefficient algorithms or data structures in this code"
+          - "What are the potential performance improvements for this method?"
+          - "Are there any N+1 query problems in this code?"
+          - "How can I optimize this database query?"
+          - "What are the resource-intensive operations in this service?"
+
+

@@ -1,0 +1,63 @@
+# COPILOT_SPRINGBOOT_PROMPTS.txt
+
+# --- CORE PROJECT UNDERSTANDING & DOCUMENTATION ---
+# 
+# Best Practice: Have the main class or README open. Use @workspace or #file references.
+
+## HIGH-LEVEL & FLOW ANALYSIS
+1.  Explain the overall architecture and primary business domain of this Spring Boot application.
+2.  List all key Spring components (Controllers, Services, Repositories) and explain their relationship.
+3.  Trace the full request lifecycle for the API endpoint: /api/v1/users/{id}
+4.  Generate a high-level sequence diagram (in Mermaid format) showing the flow from the main controller to the database for the 'create order' operation.
+5.  What are the core dependencies in pom.xml, and what is the purpose of the 'spring-cloud-starter-config' dependency?
+
+## CODE & CLASS EXPLANATION
+# Best Practice: Highlight the code block/method before using the prompt or slash command.
+6.  /explain this private method and its side effects.
+7.  Write a Javadoc docstring for the selected class that summarizes its responsibilities, dependencies, and thread-safety considerations.
+8.  How does this custom Spring Filter (highlighted) modify the incoming HTTP request?
+9.  Summarize the logic in this loop block in simple terms for a non-Java developer.
+
+# --- API, CONFIGURATION, & INFRASTRUCTURE ---
+
+## API & EXCEPTION HANDLING
+10. List all REST endpoints defined in this controller and their required path variables/request bodies.
+11. How is cross-origin resource sharing (CORS) configured for the API? Is it applied globally or per-endpoint?
+12. Where is the global exception handler defined, and how does it handle a 'ResourceNotFoundException'?
+
+## CONFIGURATION & ENVIRONMENT
+# Best Practice: Open 'application.yml' or relevant property files.
+13. Explain the effect of the properties defined in application-prod.yml.
+14. How is the database connection string configured for the 'dev' profile?
+15. Analyze the custom Spring Beans defined in this @Configuration class. What is the lifecycle of the 'TransactionManager' bean?
+
+# --- DEBUGGING, LOGGING, & TESTING ---
+
+## DEBUGGING & ERROR FIXES
+# Best Practice: Copy and paste the full stack trace into the chat.
+16. /explain this stack trace (paste stack trace). What is the root cause and the suggested line for a fix?
+17. I'm getting a 403 Forbidden error on the /admin endpoint. Analyze the security configuration and suggest why my user is being denied access.
+18. Highlight a block of code: /fix this code to prevent a potential 'ConcurrentModificationException'.
+19. The variable 'userCount' is returning an unexpected value. Explain the initialization and modification points for this variable across the codebase.
+
+## LOGGING
+20. Where is the logback/log4j2 configuration file located, and what is the configured appender (file/console/external)?
+21. What is the current logging level for the 'com.organization.app.service' package, and how can I temporarily raise it to DEBUG?
+
+## TESTING
+# Best Practice: Highlight the Service or Repository class.
+22. /tests Generate a comprehensive set of JUnit 5 tests for this UserService class, including mocks for the Repository dependency.
+23. Write an integration test using @SpringBootTest for the POST /api/v1/orders endpoint that verifies a 201 response.
+
+# --- DESIGN PATTERNS, CACHING, & PERFORMANCE ---
+
+## DESIGN PATTERNS
+# Best Practice: Highlight the file or class you suspect uses a pattern.
+24. Which Gang of Four (GoF) design pattern is implemented in this 'NotificationServiceFactory' class, and how does it promote loose coupling?
+25. Refactor the selected utility class using the Builder Pattern to improve object creation readability.
+26. Does the application use the Command pattern for any business operations? If so, where?
+
+## CACHING & PERFORMANCE
+27. Where is Caching (@Cacheable) implemented, and what is the configured cache provider (e.g., Redis, Caffeine)?
+28. Explain the eviction strategy and Time-To-Live (TTL) configured for the 'user-details' cache.
+29. Analyze this code block for potential database N+1 query issues and suggest an optimization using Spring Data JPA.

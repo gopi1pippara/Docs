@@ -1,0 +1,156 @@
+
+SPRING BOOT — PRACTICAL COPILOT PROMPTS FOR DEBUGGING & UNDERSTANDING A CODEBASE
+Author: Prepared for Gopi (Java + React + AWS)
+
+How to use: Paste these into Copilot Chat in your IDE, or add as inline comments above the code you're working on.
+Tip: End prompts with “Cite file paths and (if possible) line numbers.” to keep answers grounded.
+Tip: Narrow scope by adding “Only consider files under <path> and ignore tests/build.”
+
+───────────────────────────────────────────────────────────────────────────────
+0) REPO & ARCH OVERVIEW (START HERE)
+
+• "Give me a high-level repo summary: modules, build system, key directories, and the fastest way to run locally. Include prerequisites, env vars, and common pitfalls. Cite file paths."
+• "List all Spring Boot entry points (@SpringBootApplication). Explain profiles and configuration loading order (application.yml, application-<profile>.yml). Show where profile is selected. Cite file paths."
+• "Generate a component diagram (Mermaid) of core packages (controller → service → repository → integration). Label major classes. Cite file paths."
+• "Identify top 10 most referenced services and controllers. What are their responsibilities? Cite file paths."
+
+───────────────────────────────────────────────────────────────────────────────
+1) API & CONTROLLERS
+
+• "List all @RestController endpoints (HTTP method, path, input DTO, output DTO, exceptions, security). Output as a table. Cite file paths."
+• "For endpoint <METHOD> <PATH>, trace request flow: controller → service → repository → external calls. Provide a Mermaid sequence diagram with actual method names. Cite file paths."
+• "Find duplicate or inconsistent endpoint patterns (naming, status codes, error body). Suggest standardization. Cite file paths."
+• "Show how validation is enforced (@Valid, @Validated, custom validators). Where do binding errors map to responses? Cite file paths."
+• "Identify usage of @RequestParam vs @PathVariable vs request body across controllers. Flag mismatches. Cite file paths."
+
+───────────────────────────────────────────────────────────────────────────────
+2) SERVICE LAYER, TRANSACTIONS & BUSINESS RULES
+
+• "Map services to repositories they use. Show @Transactional boundaries and propagation settings. Flag risky read/write mixes. Cite file paths."
+• "Find business rules scattered across services. Propose consolidation or strategy pattern if-else chains are large. Cite file paths."
+• "Locate places with blocking I/O on hot paths; propose async/queue patterns. Cite file paths."
+• "Identify places where null checks or Optional misuses may cause NPE. Suggest safer patterns. Cite file paths."
+
+───────────────────────────────────────────────────────────────────────────────
+3) DATA LAYER & PERFORMANCE (JPA/JDBC)
+
+• "List entities with largest number of relations and where they are loaded. Flag potential N+1 queries and eager loads. Cite file paths."
+• "Find @Query / Criteria queries missing timeouts or limits. Suggest safe defaults. Cite file paths."
+• "Show where pagination and sorting are implemented. Are they validated? Cite file paths."
+• "Identify transaction isolation levels and default behavior. Where should @Transactional(readOnly=true) be applied? Cite file paths."
+• "Locate jdbcTemplate/EntityManager raw SQL blocks; check for parameter binding and SQL injection risks. Cite file paths."
+
+───────────────────────────────────────────────────────────────────────────────
+4) CONFIGURATION, PROFILES, FEATURE FLAGS
+
+• "Explain configuration sources: application.yml hierarchy, @ConfigurationProperties classes, and profile-specific overrides. Which properties are required to run locally? Cite file paths."
+• "Find unused or duplicated properties keys. Suggest cleanup. Cite file paths."
+• "Identify feature flags/toggles and how they alter runtime behavior. Provide a quick switch matrix by profile. Cite file paths."
+• "Which beans are conditional (@ConditionalOn…)? Show why/when they load. Cite file paths."
+• "Create a .env/.properties checklist for local/dev/test/prod with current defaults."
+
+───────────────────────────────────────────────────────────────────────────────
+5) SECURITY (AUTHN/AUTHZ)
+
+• "Describe authentication mechanism (Spring Security filters, OAuth2/JWT, SSO). Trace login flow. Cite file paths."
+• "List method-level security (@PreAuthorize/@Secured) and URL path matching rules. Identify gaps for sensitive endpoints. Cite file paths."
+• "Find places where user identity/roles are read and how they’re propagated to logs/MDC. Cite file paths."
+• "Check CSRF/CORS configuration and origins. Are they too broad? Cite file paths."
+
+───────────────────────────────────────────────────────────────────────────────
+6) CACHING & REDIS
+
+• "List all @Cacheable/@CachePut/@CacheEvict usage. Show cache names, keys, TTLs, and invalidation points. Cite file paths."
+• "Identify risky caches (no invalidation, stale reads). Suggest improvements (versioned keys, events). Cite file paths."
+• "Trace Redis configuration (connection, serializers). Check for binary vs JSON serialization mismatches. Cite file paths."
+
+───────────────────────────────────────────────────────────────────────────────
+7) LOGGING & OBSERVABILITY (Logback, MDC, Metrics)
+
+• "Summarize logging configuration (logback-spring.xml/log4j2). Is JSON logging enabled? Show log pattern and fields. Cite file paths."
+• "Where do we enrich MDC (traceId, userId, requestId)? Verify MDC propagation in async executors. Cite file paths."
+• "List all custom metrics/timers/counters. Where are they registered? Provide example dashboards/NRQL queries. Cite file paths."
+• "Find logging of sensitive data; suggest masking strategies. Cite file paths."
+• "Propose a consistent error response contract and map exceptions to it. Show @ControllerAdvice implementation. Cite file paths."
+
+───────────────────────────────────────────────────────────────────────────────
+8) ASYNC, CONCURRENCY & SCHEDULING
+
+• "List all @Async methods and their executors. Verify thread pool sizes and queue policies. Flag potential deadlocks. Cite file paths."
+• "Identify CompletableFuture/parallelStream usage and error handling. Are timeouts and cancellations handled? Cite file paths."
+• "List @Scheduled tasks/Quartz jobs and their cron, overlap, and error handling policies. Cite file paths."
+• "Check WebClient/RestTemplate timeouts, retries, and circuit-breakers (Resilience4j). Cite file paths."
+
+───────────────────────────────────────────────────────────────────────────────
+9) EXTERNAL INTEGRATIONS (S3/SNS/SQS/Apigee/etc.)
+
+• "Catalog outbound integrations: client classes, configuration, endpoints, auth. Map where each is called. Cite file paths."
+• "Verify timeouts, retries, bulkheads, and idempotency keys for external calls. Cite file paths."
+• "Show S3/SNS/SQS usage: serialization format, error handling, poison-queue strategy. Cite file paths."
+• "Identify where secrets/credentials are loaded. Ensure none are committed; propose secure alternatives. Cite file paths."
+
+───────────────────────────────────────────────────────────────────────────────
+10) TESTING STRATEGY & GAPS
+
+• "List existing test suites by layer (unit, slice, integration, e2e). Show coverage hotspots and blind spots. Cite file paths."
+• "Generate JUnit 5 tests for <Service/Controller> using Mockito/WebTestClient, based on real DTOs from the repo."
+• "Propose top 5 high-value tests for critical flows with exact file targets and test names."
+• "Locate test fixtures/builders and suggest a reusable TestDataBuilder pattern. Cite file paths."
+
+───────────────────────────────────────────────────────────────────────────────
+11) PERFORMANCE & RELIABILITY
+
+• "Find slow paths (I/O, heavy serialization, big object graphs). Suggest measurable optimizations and add timers. Cite file paths."
+• "Identify synchronous chains that should be evented/queued. Propose minimal refactor. Cite file paths."
+• "Check memory usage patterns (large collections, caching pitfalls). Suggest bounded caches or streaming. Cite file paths."
+• "Verify graceful shutdown hooks and in-flight request draining. Cite file paths."
+
+───────────────────────────────────────────────────────────────────────────────
+12) EXCEPTION HANDLING & ERROR BUDGET
+
+• "Inventory custom exceptions and where they originate. Are they mapped to stable error responses? Cite file paths."
+• "Find broad catch blocks swallowing errors. Propose structured handling with logging + metrics. Cite file paths."
+• "Trace how correlation/trace IDs propagate from incoming request to logs and error responses. Cite file paths."
+
+───────────────────────────────────────────────────────────────────────────────
+13) DESIGN PATTERNS & REFACTORING CANDIDATES
+
+• "Locate large if/else or switch blocks determining business rules; propose Strategy/State pattern with class sketches. Cite file paths."
+• "Detect duplicate mapping/conversion logic; propose MapStruct centralization. Cite file paths."
+• "Find fat controllers; move logic to services and add tests. Provide a small diff. Cite file paths."
+• "Suggest domain aggregates and boundaries to reduce coupling between modules. Cite file paths."
+• "Propose builder/record/immutability for DTOs and critical entities. Cite file paths."
+
+───────────────────────────────────────────────────────────────────────────────
+14) BUILD, CI/CD & RUNBOOKS
+
+• "Summarize Gradle/Maven modules, plugins, and build profiles. Identify outdated dependencies with security flags. Cite file paths."
+• "Describe CI workflows: build, test, lint, SCA, Docker, deploy. Suggest a minimal pipeline if gaps exist. Cite file paths."
+• "Generate a 'Run Locally' guide: commands, env vars, seed data, sample requests (curl/Postman). Cite file paths."
+• "Create an Ops runbook: health endpoints, log grep recipes, common incident checks, and rollback steps. Cite file paths."
+
+───────────────────────────────────────────────────────────────────────────────
+15) FRONTEND ↔ BACKEND FLOW (React + Spring Boot)
+
+• "List frontend routes and the API calls each screen makes. Link to hooks/services. Create a sequence diagram for the Apply flow. Cite file paths."
+• "Trace a specific API call from React hook → fetch layer → controller → service → repository. Identify data shape mismatches. Cite file paths."
+• "Find duplicated API client code; propose a single typed client with interceptors and error normalization. Cite file paths."
+
+───────────────────────────────────────────────────────────────────────────────
+16) POWER PHRASES TO BOOST ANSWER QUALITY
+
+• "Cite file paths and (if possible) line numbers used in your analysis."
+• "Limit analysis to <path> and ignore test build directories."
+• "Propose a small, diff-ready refactor limited to 60 lines."
+• "Output as a Markdown table/diagram I can paste into README/Confluence."
+• "If unsure, list assumptions and exactly where to verify them in code (paths/lines)."
+
+───────────────────────────────────────────────────────────────────────────────
+17) QUICK TERMINAL COMPANIONS (OPTIONAL)
+
+• "Generate grep/find commands to locate all controllers/services/repos and summarize counts."
+• "Generate curl or HTTPie commands to exercise key endpoints with realistic payloads."
+• "Generate SQL snippets to inspect top tables used in the <Flow>."
+
+───────────────────────────────────────────────────────────────────────────────
+END
