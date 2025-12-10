@@ -1,0 +1,39 @@
+Here’s a tight 2-slide version you can drop straight into PowerPoint.
+
+---
+
+### **Slide 1 – Manual MDC Copying: What Goes Wrong**
+
+**Title:**
+**Manual MDC Copying – Hidden Problems in Async Code**
+
+**Bullets:**
+
+* MDC is **ThreadLocal**, so async / thread-pool logs often **lose correlationId / tenantId** unless we copy MDC manually.
+* Manual MDC handling becomes **boilerplate everywhere** (`submit()`, `@Async`, `CompletableFuture`), hard to maintain.
+* Easy to **forget MDC copy** in one place → some async logs **miss correlation IDs**, breaking end-to-end traceability.
+* Incorrect or missing cleanup can **leak MDC between requests** on pooled threads → logs show **wrong user/correlationId**.
+* Business logic is **polluted with logging code** (`MDC.put/clear`), making it harder to read, test, and evolve.
+* Behavior is **inconsistent across teams** – everyone copies MDC differently, no single enforcement point.
+
+**(Optional speaker note)**
+“This slide sets up the pain: MDC is great on a single thread, but once we use executors or `@Async`, manual copying becomes error-prone and leads to missing or misleading logs in production.”
+
+---
+
+### **Slide 2 – TaskDecorator: Clean MDC Propagation**
+
+**Title:**
+**MDC TaskDecorator – Centralized, Safe, and Automatic**
+
+**Bullets:**
+
+* `TaskDecorator` wraps every task submitted to a **Spring `TaskExecutor`** and **captures MDC from the caller thread**.
+* Before the task runs, it **sets the captured MDC** on the worker thread; after completion, it **restores the original MDC**, preventing leaks.
+* **Configured once** on the executor → **all usages** (`@Async`, manual `executor.submit`, schedulers using that executor) get MDC propagation automatically.
+* **No MDC code inside business logic** – logging becomes an **infrastructure concern**, improving readability and testability.
+* Provides a **single, centralized place** to evolve context handling (add `tenantId`, `sessionId`, etc.) without touching business code.
+* Same pattern can be extended to propagate **SecurityContext, locale, tenant, or other ThreadLocal data** along with MDC.
+
+**(Optional speaker note)**
+“This slide shows the solution: instead of every dev remembering to copy MDC, the executor handles it for us. We get consistent, reliable correlation IDs across async calls, cleaner code, and a single place to manage all cross-cutting context.”
